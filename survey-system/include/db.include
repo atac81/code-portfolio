@@ -1,0 +1,99 @@
+<?php
+
+class DB {
+    var $DB_USER = 'username';
+    var $DB_NAME = 'database';
+    var $DB_PASS = 'password';
+    var $dbh = 0;
+
+    // constructor to automatically grab a db connection
+    function DB()
+    {
+        return $this->db_open() ? 1 : 0;
+    }
+     
+    function db_catch_error($dbh)
+    {
+        return pg_errormessage($dbh);
+    }
+
+    // open the db connection
+    function db_open()
+    {
+        $connect_string = ' user=' . $this->DB_USER . 
+                          ' dbname=' . $this->DB_NAME . 
+                          ' password=' . $this->$DB_PASS; 
+        $this->dbh = pg_connect($connect_string);
+
+       	if ($this->dbh == 0)
+       	{
+            trigger_error("Could not establish database connection using connect string $connect_string.", E_USER_ERROR);
+            return(0);
+       	}
+
+       	return(1);
+    }
+
+    // close the db connection
+    function db_close()
+    {
+        // we're using persistent connections
+        // pg_close won't do anything anyway
+        return(1);
+    }
+
+    function db_numrows(&$sth)
+    {
+        return pg_num_rows($sth);
+    }
+
+    // query the database
+    function db_query(&$sth, $query)
+    {
+        // make sure query is set
+        if (!isset($query))
+        {
+            trigger_error("No query defined.", E_USER_ERROR);
+            return(0);
+        }
+        // attempt to execute the statement
+        $sth = pg_exec($this->dbh, $query);
+
+        // check for errors
+        if ($sth == 0)
+        {
+            trigger_error("Bad result on pg_exec of: $query", E_USER_ERROR);
+            return(0);
+        }
+        // success
+        return(1);
+    }
+
+    // fetch the next result
+    function db_fetch_object($sth)
+    {
+        return pg_fetch_object($sth);
+    }
+
+    // prep a variable INTO the database
+    function db_encode($value)
+    {
+        // Escape the string for use in the database query
+        $value = pg_escape_string($value); 
+
+        return($value);
+    }
+	
+    // prep a variable FROM the database
+    function db_decode($value)
+    {
+        // Escape the string for use in the database query
+        $value = stripslashes($value); 
+
+        // Convert all applicable characters to HTML entities, including converting both double and single quotes
+        $value = htmlentities($value, ENT_QUOTES, "UTF-8");
+
+        return($value);
+    }
+}
+?>
