@@ -1,0 +1,104 @@
+.container {
+	height: 40%; /* Set your own height: percents, ems, whatever! */
+	width: 95%; /* Set your own width: percents, ems, whatever! */
+	min-height: 370px;
+	min-width: 300px;
+	max-width: 1200px;
+	margin: auto; /* Center the item vertically & horizontally */
+	position: absolute; /* Break it out of the regular flow */
+	top: 0; left: 0; bottom: 0; right: 0; /* Set the bounds in which to center it, relative to its parent/container */
+}
+.message_splash {
+	color:#34373a;
+	display:block;
+	font:400 20px/29px 'Open Sans', sans-serif;
+	letter-spacing:0.08em;
+	margin-bottom:10px;
+	position:relative;
+	text-align:center;
+}
+@media (max-width: 500px){
+.message_splash {
+	padding-top: 20px;
+}
+}
+ul.img-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+ul.img-list li {
+	display: inline-block;
+	height: 280px;
+	margin: 0 1em 1em 0;
+	position: relative;
+	vertical-align: middle;
+	width: 300px;
+}
+@media (max-width: 500px){
+ul.img-list li {
+	height: 120px;
+}
+}
+span.logo img {
+	height: 120px;
+	padding-bottom: 80px;
+	padding-top: 80px;
+	width: 300px;
+}
+@media (max-width: 500px){
+span.logo img {
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+}
+span.text-content {
+	color: white;
+	cursor: pointer;
+	display: table;
+	height: 280px;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	-moz-transition: opacity 500ms;
+	-o-transition: opacity 500ms;
+	transition: opacity 500ms;
+	width: 300px;
+}
+span.text-content span.opm {
+	background: #AA750B;
+}
+span.text-content span.omm {
+	background: #FF8000;
+}
+span.text-content span.mandrel {
+	background: #336699;
+}
+span.text-content span {
+	display: table-cell;
+	font-family:'Open Sans', sans-serif;
+	font-size:14px;
+	line-height:22px;
+	padding: 20px 20px 20px 20px;
+	text-align:left;
+	text-shadow: 1px 1px #333333;
+	vertical-align: middle;
+}
+ul.img-list li:hover span.text-content {
+	opacity: .92;
+}
+@media (max-width: 500px){
+ul.img-list li:hover span.text-content {
+	opacity: 0;
+}
+}
+.footer {
+	color: #000000;
+	font-family:'Open Sans', sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 20px;
+	text-align: right;
+}
